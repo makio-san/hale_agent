@@ -27,6 +27,7 @@ Allowed reads inside the target repository:
 | `config/*.json` | Versioned experiment protocols |
 | `artifacts/*/report.json`, `artifacts/*/metrics.csv`, `artifacts/*/preflight.json` | Frozen summary outputs |
 | `artifacts/hale_approvals/*.json` | Human gate records written by `hale approve` |
+| `agents/*.md`, `agents/state/*.md`, `agents/reports/*.md` | Rules, protocol ledger and merge log of the Helio24 agent orchestra |
 
 Everything else is denied, including `data/`, raw Parquet or CSV rows,
 notebooks, model files, environment files and anything outside the repository
