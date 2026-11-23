@@ -30,6 +30,9 @@ READ_ALLOWLIST: tuple[str, ...] = (
     "artifacts/*/metrics.csv",
     "artifacts/*/preflight.json",
     "artifacts/hale_approvals/*.json",
+    "agents/*.md",
+    "agents/state/*.md",
+    "agents/reports/*.md",
 )
 
 _TEST_KEY = re.compile(r"^(test|test_.*|reserved_test.*|final_test.*)$", re.IGNORECASE)

@@ -22,6 +22,18 @@ def test_denied_paths_raise(policy: RepoPolicy, path: str):
         policy.resolve_read(path)
 
 
+def test_orchestra_records_are_readable(policy: RepoPolicy, repo: Path):
+    (repo / "agents" / "state").mkdir(parents=True)
+    (repo / "agents" / "bin").mkdir()
+    (repo / "agents" / "RULES.md").write_text("# Rules\n", encoding="utf-8")
+    (repo / "agents" / "state" / "protocol-ledger.md").write_text("| a |\n", encoding="utf-8")
+    (repo / "agents" / "bin" / "workspace.sh").write_text("echo\n", encoding="utf-8")
+    assert policy.resolve_read("agents/RULES.md").is_file()
+    assert policy.resolve_read("agents/state/protocol-ledger.md").is_file()
+    with pytest.raises(PolicyError):
+        policy.resolve_read("agents/bin/workspace.sh")
+
+
 def test_symlink_escape_is_denied(policy: RepoPolicy, repo: Path, tmp_path_factory):
     outside = tmp_path_factory.mktemp("outside") / "leak.md"
     outside.write_text("secret", encoding="utf-8")
